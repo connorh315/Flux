@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Flux.Models.StreamParts
+{
+    public class ComponentDefinition
+    {
+        public string Name;
+        public uint ClassIndex;
+    }
+}
