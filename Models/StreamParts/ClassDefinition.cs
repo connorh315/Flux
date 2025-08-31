@@ -14,12 +14,5 @@ namespace Flux.Models.StreamParts
         public ClassTypeDefinition[] Types;
         public ComponentDefinition[] Components;
         public ClassDefinition Params;
-
-        public ContainerInstance Instantiate()
-        {
-            ContainerInstance instance = new ContainerInstance(Name, Types.Length, Components.Length);
-
-            return instance;
-        }
     }
 }

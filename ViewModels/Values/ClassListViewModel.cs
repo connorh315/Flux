@@ -12,7 +12,7 @@ namespace Flux.ViewModels.Values
     {
         public ObservableCollection<ClassViewModel> Instances { get; set; } = new ObservableCollection<ClassViewModel>();
 
-        public string Name { get => "Test"; }
+        public string Name { get => $"{(Instances.Count > 0 ? Instances[0].Name : "Empty")} Group"; }
 
         public ContainerList Model { get; set; }
 

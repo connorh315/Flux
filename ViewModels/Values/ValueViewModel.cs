@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Flux.ViewModels.Values
 {
-    public abstract class ValueViewModel
+    public abstract class ValueViewModel : ViewModel
     {
         public abstract FieldType Type { get; }
 

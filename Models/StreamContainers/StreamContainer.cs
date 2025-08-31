@@ -37,8 +37,8 @@ namespace Flux.Models.StreamContainers
                         break;
                     case ".led": // Stupid file can be either...
                         file.Seek(4, SeekOrigin.Begin);
-                        string marker = file.ReadString(12);
-                        if (marker == ".CC4HSERHSER")
+                        string resourceHeaderStr = file.ReadString(12);
+                        if (resourceHeaderStr == ".CC4HSERHSER")
                         {
                             container = new ResourceStreamContainer();
                         }

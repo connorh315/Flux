@@ -7,4 +7,13 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+    <Application.Resources>
+      <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+          <ResourceInclude Source="/Controls/Input.axaml"/>
+          <ResourceInclude Source="/Controls/Input3.axaml"/>
+          <ResourceInclude Source="/Controls/FSInput.axaml"/>
+        </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
+    </Application.Resources>
 </Application>

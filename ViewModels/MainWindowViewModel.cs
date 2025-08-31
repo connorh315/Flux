@@ -1,5 +1,6 @@
 ﻿using Flux.Models.StreamContainers;
 using Flux.Models.StreamParts;
+using Flux.ViewModels.Values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace Flux.ViewModels
     {
         private StreamViewModel currentStreamFile;
         public StreamViewModel CurrentStreamFile { get => currentStreamFile; set => SetField(ref currentStreamFile, value); }
+
+        private ClassViewModel selectedClass;
+        public ClassViewModel SelectedClass { get => selectedClass; set => SetField(ref selectedClass, value); }
 
         public void OpenFile(string filePath)
         {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,8 +34,42 @@ namespace Flux.ViewModels
                         {
                             model.Properties.Add(new StringValueViewModel(pf));
                         }
+                        else if (pf.FieldType == FieldType.Char)
+                        {
+                            model.Properties.Add(new CharValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.Float)
+                        {
+                            model.Properties.Add(new FloatValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.Int)
+                        {
+                            model.Properties.Add(new IntValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.Int64)
+                        {
+                            model.Properties.Add(new LongValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.Colour3)
+                        {
+                            model.Properties.Add(new Colour3ValueViewModel(pf));
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{pf.FieldType} editor not implemented!");
+                        }
                     }
                 }
+                else if (field is ContainerInstance inst)
+                {
+                    model.Properties.Add(ConvertObject(inst));
+                }
+            }
+
+            for (int i = 0; i < obj.Components.Length; i++)
+            {
+                var component = obj.Components[i];
+                model.Components.Add(ConvertObjectList(component));
             }
 
             return model;
@@ -61,17 +96,6 @@ namespace Flux.ViewModels
             foreach (var list in container.Stream.Objects)
             {
                 stream.Items.Add(ConvertObjectList(list));
-
-                //foreach (var obj in list.Containers)
-                //{
-                //    foreach (var field in obj.Fields)
-                //    {
-                //        if (field is PrimitiveField pf)
-                //        {
-                //            Console.WriteLine(pf.Value);
-                //        }
-                //    }
-                //}
             }
 
             return stream;
