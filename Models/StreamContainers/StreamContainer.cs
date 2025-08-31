@@ -26,32 +26,15 @@ namespace Flux.Models.StreamContainers
             using (RawFile file = new RawFile(filePath))
             {
                 StreamContainer container;
-                switch (ext)
+                file.Seek(4, SeekOrigin.Begin);
+                string determinant = file.ReadString(12);
+                if (determinant == ".CC4HSERHSER")
                 {
-                    case ".cd":
-                    case ".as":
-                        container = new ResourceStreamContainer();
-                        break;
-                    case ".cpj":
-                        container = new StreamContainer();
-                        break;
-                    case ".led": // Stupid file can be either...
-                        file.Seek(4, SeekOrigin.Begin);
-                        string resourceHeaderStr = file.ReadString(12);
-                        if (resourceHeaderStr == ".CC4HSERHSER")
-                        {
-                            container = new ResourceStreamContainer();
-                        }
-                        else
-                        {
-                            container = new StreamContainer();
-                        }
-                        file.Seek(0, SeekOrigin.Begin);
-                        break;
-                    default:
-                        Console.WriteLine($"Unknown file extension {ext}. Defaulting to StreamContainer.");
-                        container = new StreamContainer();
-                        break;
+                    container = new ResourceStreamContainer();
+                }
+                else
+                {
+                    container = new StreamContainer();
                 }
 
                 container.Read(file);

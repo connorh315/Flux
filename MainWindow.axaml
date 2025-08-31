@@ -30,7 +30,10 @@
         <TreeView.DataTemplates>
           <TreeDataTemplate DataType="val:ClassListViewModel"
                     ItemsSource="{Binding Instances}">
-            <TextBlock Text="{Binding Name}" />
+            <TextBlock>
+              <Run Text="{Binding Name}" />
+              <Run Text="(Group)" Foreground="Gray" />
+            </TextBlock>
           </TreeDataTemplate>
 
           <TreeDataTemplate DataType="val:ClassViewModel" ItemsSource="{Binding Children}">
@@ -69,6 +72,10 @@
                         Value2="{Binding Value2, Mode=TwoWay}"
                         Value3="{Binding Value3, Mode=TwoWay}"
                         Margin="0,0,0,10" InputType="Float" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:ClassViewModel">
+                
               </DataTemplate>
             </ItemsControl.DataTemplates>
           </ItemsControl>
