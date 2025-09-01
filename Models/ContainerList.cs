@@ -1,25 +1,14 @@
-﻿using Flux.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Flux.Models
+﻿namespace Flux.Models
 {
-    public class ContainerList : FieldValue
+    public class ContainerList(int containerCount) : FieldValue("")
     {
-        public ContainerInstance[] Containers;
+        public ContainerInstance[] Containers = new ContainerInstance[containerCount];
 
-        public ContainerList(int containerCount) : base("")
-        {
-            Containers = new ContainerInstance[containerCount];
-        }
+        private int _containerOffset = 0;
 
-        private int containerOffset = 0;
         public void AddContainer(ContainerInstance container)
         {
-            Containers[containerOffset++] = container;
+            Containers[_containerOffset++] = container;
         }
     }
 }

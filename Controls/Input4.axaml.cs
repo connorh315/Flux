@@ -6,7 +6,7 @@ using Avalonia.Data;
 namespace Flux
 {
 
-    public class Input3 : TemplatedControl
+    public class Input4 : TemplatedControl
     {
         /// <summary>
         /// InputLabel StyledProperty definition
@@ -55,8 +55,8 @@ namespace Flux
 
         private string _value1 = "";
 
-        public static readonly DirectProperty<Input3, string> Value1Property =
-            AvaloniaProperty.RegisterDirect<Input3, string>(
+        public static readonly DirectProperty<Input4, string> Value1Property =
+            AvaloniaProperty.RegisterDirect<Input4, string>(
                 nameof(Value1),
                 o => o.Value1,
                 (o, v) => o.Value1 = v,
@@ -77,8 +77,8 @@ namespace Flux
 
         private string _value2 = "";
 
-        public static readonly DirectProperty<Input3, string> Value2Property =
-            AvaloniaProperty.RegisterDirect<Input3, string>(
+        public static readonly DirectProperty<Input4, string> Value2Property =
+            AvaloniaProperty.RegisterDirect<Input4, string>(
                 nameof(Value2),
                 o => o.Value2,
                 (o, v) => o.Value2 = v,
@@ -99,8 +99,8 @@ namespace Flux
 
         private string _value3 = "";
 
-        public static readonly DirectProperty<Input3, string> Value3Property =
-            AvaloniaProperty.RegisterDirect<Input3, string>(
+        public static readonly DirectProperty<Input4, string> Value3Property =
+            AvaloniaProperty.RegisterDirect<Input4, string>(
                 nameof(Value3),
                 o => o.Value3,
                 (o, v) => o.Value3 = v,
@@ -119,6 +119,28 @@ namespace Flux
             }
         }
 
+        private string _value4 = "";
+
+        public static readonly DirectProperty<Input4, string> Value4Property =
+            AvaloniaProperty.RegisterDirect<Input4, string>(
+                nameof(Value4),
+                o => o.Value4,
+                (o, v) => o.Value4 = v,
+                defaultBindingMode: BindingMode.TwoWay, enableDataValidation: true);
+
+        public string Value4
+        {
+            get => _value4;
+            set
+            {
+                if (value == _value4) return;
+
+                Validate(value);
+
+                SetAndRaise(Value4Property, ref _value4, value);
+            }
+        }
+
         /// <summary>
         /// InputType StyledProperty definition
         /// </summary>
@@ -134,6 +156,7 @@ namespace Flux
             get => GetValue(InputTypeProperty);
             set => SetValue(InputTypeProperty, value);
         }
+
 
         private void TextBox1_LostFocus(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
@@ -165,6 +188,16 @@ namespace Flux
             Value3 = original;
         }
 
+        private void TextBox4_LostFocus(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (sender is not TextBox textbox) return;
+
+            // Basically, this forces the input to be valid, either by using the last appropriate value, or best case scenario it just updates back to itself again.
+            string original = Value4;
+            Value4 = "00000";
+            Value4 = original;
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -177,6 +210,9 @@ namespace Flux
 
             var tb3 = e.NameScope.Find<TextBox>("PART_Textbox3");
             tb3.LostFocus += TextBox3_LostFocus;
+
+            var tb4 = e.NameScope.Find<TextBox>("PART_Textbox4");
+            tb4.LostFocus += TextBox3_LostFocus;
         }
     }
 }

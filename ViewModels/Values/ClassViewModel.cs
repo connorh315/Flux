@@ -1,10 +1,6 @@
 ﻿using Flux.Models;
-using System;
-using System.Collections.Generic;
+using Flux.Models.StreamContainers.StreamInfo.Definitions;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flux.ViewModels.Values
 {
@@ -12,9 +8,9 @@ namespace Flux.ViewModels.Values
     {
         public override FieldType Type => FieldType.ClassObject;
 
-        public ObservableCollection<ValueViewModel> Properties { get; set; } = new();
+        public ObservableCollection<ValueViewModel> Properties { get; set; } = [];
 
-        public ObservableCollection<ClassListViewModel> Components = new();
+        public ObservableCollection<ClassListViewModel> Components = [];
 
         public ObservableCollection<object> Children { get; } = new();
 
@@ -27,6 +23,7 @@ namespace Flux.ViewModels.Values
         private void Sync()
         {
             Children.Clear();
+
             foreach (var p in Properties) 
             {
                 if (p is ClassViewModel) 
@@ -34,7 +31,11 @@ namespace Flux.ViewModels.Values
                     Children.Add(p); 
                 }
             }
-            foreach (var c in Components) Children.Add(c);
+
+            foreach (var c in Components)
+            {
+                Children.Add(c);
+            }
         }
     }
 }

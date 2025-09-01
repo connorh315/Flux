@@ -1,14 +1,9 @@
 ﻿using Flux.Models;
 using Flux.Models.StreamContainers;
+using Flux.Models.StreamContainers.StreamInfo.Definitions;
 using Flux.ViewModels.Values;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Flux.ViewModels
 {
@@ -16,11 +11,11 @@ namespace Flux.ViewModels
     {
         public string FilePath { get; set; }
 
-        public ObservableCollection<ClassListViewModel> Items { get; set; } = new();
+        public ObservableCollection<ClassListViewModel> Items { get; set; } = [];
 
         private static ClassViewModel ConvertObject(ContainerInstance obj)
         {
-            ClassViewModel model = new ClassViewModel(obj);
+            ClassViewModel model = new(obj);
 
             for (int i = 0; i < obj.Fields.Length; i++)
             {
@@ -30,17 +25,13 @@ namespace Flux.ViewModels
                 {
                     if (pf.Value != null)
                     {
-                        if (pf.FieldType == FieldType.String)
-                        {
-                            model.Properties.Add(new StringValueViewModel(pf));
-                        }
-                        else if (pf.FieldType == FieldType.Char)
+                        if (pf.FieldType == FieldType.Char)
                         {
                             model.Properties.Add(new CharValueViewModel(pf));
                         }
-                        else if (pf.FieldType == FieldType.Float)
+                        else if (pf.FieldType == FieldType.Short)
                         {
-                            model.Properties.Add(new FloatValueViewModel(pf));
+                            model.Properties.Add(new ShortValueViewModel(pf));
                         }
                         else if (pf.FieldType == FieldType.Int)
                         {
@@ -50,13 +41,48 @@ namespace Flux.ViewModels
                         {
                             model.Properties.Add(new LongValueViewModel(pf));
                         }
+                        else if (pf.FieldType == FieldType.Float)
+                        {
+                            model.Properties.Add(new FloatValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.String)
+                        {
+                            model.Properties.Add(new StringValueViewModel(pf));
+                        }
                         else if (pf.FieldType == FieldType.Colour3)
                         {
                             model.Properties.Add(new Colour3ValueViewModel(pf));
                         }
+                        else if (pf.FieldType == FieldType.Colour4)
+                        {
+                            model.Properties.Add(new Colour4ValueViewModel(pf));
+                        }
+                        // TODO: NuHSpecial.
+                        else if (pf.FieldType == FieldType.Vec3)
+                        {
+                            model.Properties.Add(new Vec3ValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.Vec4)
+                        {
+                            model.Properties.Add(new Vec4ValueViewModel(pf));
+                        }
+                        else if (pf.FieldType == FieldType.Mtx)
+                        {
+                            model.Properties.Add(new MtxValueViewModel(pf));
+                        }
+                        // TODO: Ptr.
+                        // TODO: ClassObject?
+                        // TODO: ClassObjectRef?
+                        // TODO: Half.
+                        // TODO: Data.
+                        // TODO: HalfVec3.
+                        else if (pf.FieldType == FieldType.UChar)
+                        {
+                            model.Properties.Add(new UCharValueViewModel(pf));
+                        }
                         else
                         {
-                            Console.WriteLine($"{pf.FieldType} editor not implemented!");
+                            Program.Logger.Debug($"{pf.FieldType} editor not implemented!");
                         }
                     }
                 }
@@ -77,7 +103,7 @@ namespace Flux.ViewModels
 
         private static ClassListViewModel ConvertObjectList(ContainerList objectList)
         {
-            ClassListViewModel list = new ClassListViewModel(objectList);
+            ClassListViewModel list = new(objectList);
 
             foreach (var item in objectList.Containers)
             {
@@ -87,16 +113,17 @@ namespace Flux.ViewModels
             return list;
         }
 
-        public static StreamViewModel Parse(string fileLocation)
+        public static StreamViewModel Deserialize(string filePath)
         {
-            var container = StreamContainer.Parse(fileLocation);
+            StreamInfoContainer container = StreamInfoContainer.Deserialize(filePath);
+            StreamViewModel     stream    = new();
 
-            var stream = new StreamViewModel();
-
-            foreach (var list in container.Stream.Objects)
+            foreach (ContainerList list in container.StreamInfoBase.Objects)
             {
                 stream.Items.Add(ConvertObjectList(list));
             }
+
+            StreamInfoContainer.Dispose();
 
             return stream;
         }

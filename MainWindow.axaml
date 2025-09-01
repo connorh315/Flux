@@ -2,12 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         xmlns:vm="clr-namespace:Flux.ViewModels"
         xmlns:val="clr-namespace:Flux.ViewModels.Values"
         x:Class="Flux.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Flux">
+        Title="Flux"
+        FontSize="12"
+        Background="#202020">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -51,6 +53,10 @@
                 <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Byte" />
               </DataTemplate>
 
+              <DataTemplate DataType="val:UCharValueViewModel">
+                <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Byte" />
+              </DataTemplate>
+
               <DataTemplate DataType="val:FloatValueViewModel">
                 <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Float" />
               </DataTemplate>
@@ -59,16 +65,71 @@
                 <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Int" />
               </DataTemplate>
 
+              <DataTemplate DataType="val:ShortValueViewModel">
+                <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Short" />
+              </DataTemplate>
+
               <DataTemplate DataType="val:LongValueViewModel">
                 <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Long" />
               </DataTemplate>
 
               <DataTemplate DataType="val:Colour3ValueViewModel">
                 <Input3 InputLabel="{Binding Name}" 
-                        Value1="{Binding Value1, Mode=TwoWay}"
-                        Value2="{Binding Value2, Mode=TwoWay}"
-                        Value3="{Binding Value3, Mode=TwoWay}"
+                        Value1="{Binding R, Mode=TwoWay}"
+                        Value2="{Binding G, Mode=TwoWay}"
+                        Value3="{Binding B, Mode=TwoWay}"
                         Margin="0,0,0,10" InputType="Float" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:Colour4ValueViewModel">
+                <Input4 InputLabel="{Binding Name}"
+                        Value1="{Binding R, Mode=TwoWay}"
+                        Value2="{Binding G, Mode=TwoWay}"
+                        Value3="{Binding B, Mode=TwoWay}"
+                        Value4="{Binding A, Mode=TwoWay}"
+                        Margin="0,0,0,10" InputType="Float" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:Vec3ValueViewModel">
+                <Input3 InputLabel="{Binding Name}"
+                        Value1="{Binding X, Mode=TwoWay}"
+                        Value2="{Binding Y, Mode=TwoWay}"
+                        Value3="{Binding Z, Mode=TwoWay}"
+                        Margin="0,0,0,10" InputType="Float" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:Vec4ValueViewModel">
+                <Input4 InputLabel="{Binding Name}"
+                        Value1="{Binding X, Mode=TwoWay}"
+                        Value2="{Binding Y, Mode=TwoWay}"
+                        Value3="{Binding Z, Mode=TwoWay}"
+                        Value4="{Binding W, Mode=TwoWay}"
+                        Margin="0,0,0,10" InputType="Float" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:MtxValueViewModel">
+                <Input16 InputLabel="{Binding Name}"
+                         InputType="Float"
+                         Margin="0,0,0,10"
+                         Value1="{Binding A1, Mode=TwoWay}"
+                         Value2="{Binding B1, Mode=TwoWay}"
+                         Value3="{Binding C1, Mode=TwoWay}"
+                         Value4="{Binding D1, Mode=TwoWay}"
+
+                         Value5="{Binding A2, Mode=TwoWay}"
+                         Value6="{Binding B2, Mode=TwoWay}"
+                         Value7="{Binding C2, Mode=TwoWay}"
+                         Value8="{Binding D2, Mode=TwoWay}"
+
+                         Value9="{Binding A3, Mode=TwoWay}"
+                         Value10="{Binding B3, Mode=TwoWay}"
+                         Value11="{Binding C3, Mode=TwoWay}"
+                         Value12="{Binding D3, Mode=TwoWay}"
+
+                         Value13="{Binding A4, Mode=TwoWay}"
+                         Value14="{Binding B4, Mode=TwoWay}"
+                         Value15="{Binding C4, Mode=TwoWay}"
+                         Value16="{Binding D4, Mode=TwoWay}" />
               </DataTemplate>
             </ItemsControl.DataTemplates>
           </ItemsControl>

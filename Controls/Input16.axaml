@@ -1,0 +1,55 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Flux">
+
+  <Design.PreviewWith>
+    <StackPanel Width="400" Spacing="10">
+      <StackPanel Background="{DynamicResource SystemRegionBrush}">
+        <controls:Input16 />
+      </StackPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type controls:Input16}" TargetType="controls:Input16">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="{TemplateBinding InputLabel}" VerticalAlignment="Center" />
+          <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="5">
+            <Grid ColumnDefinitions="*,5,*,5,*,5,*">
+              <TextBox x:Name="PART_Textbox1" Grid.Column="0" Text="{Binding Value1, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox2" Grid.Column="2" Text="{Binding Value2, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox3" Grid.Column="4" Text="{Binding Value3, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox4" Grid.Column="6" Text="{Binding Value4, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,5,*,5,*,5,*">
+              <TextBox x:Name="PART_Textbox5" Grid.Column="0" Text="{Binding Value5, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox6" Grid.Column="2" Text="{Binding Value6, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox7" Grid.Column="4" Text="{Binding Value7, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox8" Grid.Column="6" Text="{Binding Value8, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,5,*,5,*,5,*">
+              <TextBox x:Name="PART_Textbox9" Grid.Column="0" Text="{Binding Value9, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox10" Grid.Column="2" Text="{Binding Value10, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox11" Grid.Column="4" Text="{Binding Value11, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox12" Grid.Column="6" Text="{Binding Value12, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,5,*,5,*,5,*">
+              <TextBox x:Name="PART_Textbox13" Grid.Column="0" Text="{Binding Value13, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox14" Grid.Column="2" Text="{Binding Value14, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox15" Grid.Column="4" Text="{Binding Value15, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <TextBox x:Name="PART_Textbox16" Grid.Column="6" Text="{Binding Value16, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+            </Grid>
+          </StackPanel>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

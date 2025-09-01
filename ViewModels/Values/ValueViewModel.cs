@@ -1,9 +1,5 @@
 ﻿using Flux.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Flux.Models.StreamContainers.StreamInfo.Definitions;
 
 namespace Flux.ViewModels.Values
 {
@@ -11,14 +7,14 @@ namespace Flux.ViewModels.Values
     {
         public abstract FieldType Type { get; }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public FieldValue Model { get; set; }
+        public FieldValue Model { get; }
 
-        public ValueViewModel(FieldValue model)
+        protected ValueViewModel(FieldValue model)
         {
-            Name = model.Name;
             Model = model;
+            Name = $"{model.Name} ({Type})";
         }
     }
 }

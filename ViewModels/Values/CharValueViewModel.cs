@@ -1,9 +1,5 @@
 ﻿using Flux.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Flux.Models.StreamContainers.StreamInfo.Definitions;
 
 namespace Flux.ViewModels.Values
 {
@@ -11,10 +7,10 @@ namespace Flux.ViewModels.Values
     {
         public override FieldType Type => FieldType.Char;
 
-        public override long MaxValue => byte.MaxValue;
+        public override long MaxValue => sbyte.MaxValue;
 
-        private byte byteValue;
-        public byte Value 
+        private sbyte byteValue;
+        public sbyte Value 
         { 
             get => byteValue; 
             set => SetField(ref byteValue, value); 
@@ -22,7 +18,7 @@ namespace Flux.ViewModels.Values
 
         public CharValueViewModel(PrimitiveField model) : base(model)
         {
-            Value = (byte)model.Value;
+            Value = (sbyte)model.Value;
         }
     }
 }

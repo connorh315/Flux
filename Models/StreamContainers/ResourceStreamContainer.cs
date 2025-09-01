@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace Flux.Models.StreamContainers
 {
-    public class ResourceStreamContainer : StreamContainer
+    public class ResourceStreamInfoContainer : StreamInfoContainer
     {
-        protected override void Read(RawFile file)
+        protected override void Read()
         {
-            uint reshSize = file.ReadUInt(true);
-            file.Seek(reshSize + 4, SeekOrigin.Begin);
-            base.Read(file);
+            using BinaryReader reader = new(Stream);
+
+            // NOTE: Read and Swap the Resource Header.
+            // TODO: Deserialize it.
+            uint resourceHeaderSize = reader.ReadUInt32BigEndian();
+
+            Stream.Seek(resourceHeaderSize + 4, SeekOrigin.Begin);
+
+            base.Read();
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using Flux.Models.StreamContainers;
-using Flux.Models.StreamParts;
-using Flux.ViewModels.Values;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Flux.ViewModels.Values;
 
 namespace Flux.ViewModels
 {
@@ -19,7 +12,7 @@ namespace Flux.ViewModels
 
         public void OpenFile(string filePath)
         {
-            CurrentStreamFile = StreamViewModel.Parse(filePath);
+            CurrentStreamFile = StreamViewModel.Deserialize(filePath);
         }
     }
 }

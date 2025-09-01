@@ -1,9 +1,5 @@
 ﻿using Flux.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Flux.Models.StreamContainers.StreamInfo.Definitions;
 
 namespace Flux.ViewModels.Values
 {
