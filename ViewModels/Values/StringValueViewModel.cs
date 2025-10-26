@@ -15,7 +15,9 @@ namespace Flux.ViewModels.Values
 
         public StringValueViewModel(PrimitiveField model) : base(model)
         {
-            Value = model.Value as string;
+            Value = model.Value != null ? (string)model.Value : string.Empty;
         }
+
+        public override object GetValue() => Value;
     }
 }

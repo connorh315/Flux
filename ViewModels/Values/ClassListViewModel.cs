@@ -1,4 +1,5 @@
 ﻿using Flux.Models;
+using Flux.Models.StreamParts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,11 +13,11 @@ namespace Flux.ViewModels.Values
     {
         public ObservableCollection<ClassViewModel> Instances { get; set; } = new ObservableCollection<ClassViewModel>();
 
-        public string Name { get => $"{(Instances.Count > 0 ? Instances[0].Name : "Empty")}"; }
+        public string Name { get => $"{Model.Definition?.Name ?? "Empty"}"; }
 
-        public ContainerList Model { get; set; }
+        public ObjectList Model { get; set; }
 
-        public ClassListViewModel(ContainerList model)
+        public ClassListViewModel(ObjectList model)
         {
             Model = model;
         }

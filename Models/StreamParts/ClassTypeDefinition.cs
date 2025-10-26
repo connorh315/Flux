@@ -17,6 +17,11 @@ namespace Flux.Models.StreamParts
 
         public bool ReadAsBlock;
 
+        public uint PackedBytes1; // Since I don't know what all these values do yet, this is used when re-serializing the data
+        public uint PackedBytes2;
+        public uint PackedBytes3;
+        public uint PackedBytes4;
+
         public int CountVal;
     }
 }

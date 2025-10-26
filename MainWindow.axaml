@@ -7,7 +7,7 @@
         xmlns:val="clr-namespace:Flux.ViewModels.Values"
         x:Class="Flux.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Flux">
+        Title="{Binding WindowTitle}">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -17,6 +17,8 @@
     <Menu Grid.Row="0">
       <MenuItem Header="_File">
         <MenuItem Header="_Open" Click="MenuItem_OpenFile_Click"/>
+        <MenuItem Header="_Save" Click="MenuItem_SaveFile_Click"/>
+        <MenuItem Header="Save _As" Click="MenuItem_SaveAs_Click"/>
       </MenuItem>
     </Menu>
     
@@ -30,14 +32,20 @@
         <TreeView.DataTemplates>
           <TreeDataTemplate DataType="val:ClassListViewModel"
                     ItemsSource="{Binding Instances}">
-            <TextBlock>
-              <Run Text="{Binding Name}" />
-              <Run Text="(Group)" Foreground="Gray" />
-            </TextBlock>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">
+                <Run Text="{Binding Name}" />
+                <Run Text="(Group)" Foreground="Gray" />
+              </TextBlock>
+              <Button DataContext="{Binding}" Click="AddMember_Click" DoubleTapped="Button_DoubleTapped" Content="+ Add" VerticalAlignment="Center" />
+            </StackPanel>
           </TreeDataTemplate>
 
           <TreeDataTemplate DataType="val:ClassViewModel" ItemsSource="{Binding Children}">
-            <TextBlock Text="{Binding Name}" />
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="0,0,10,0" />
+              <Button DataContext="{Binding}" IsVisible="{Binding CanRemove}" Click="DeleteClass_Click" Content="X" VerticalAlignment="Center" />
+            </StackPanel>
           </TreeDataTemplate>
         </TreeView.DataTemplates>
       </TreeView>
@@ -54,8 +62,20 @@
                 <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Byte" />
               </DataTemplate>
 
+              <DataTemplate DataType="val:UCharValueViewModel">
+                <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Byte" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:HalfValueViewModel">
+                <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Half" />
+              </DataTemplate>
+
               <DataTemplate DataType="val:FloatValueViewModel">
                 <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Float" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:ShortValueViewModel">
+                <Input InputLabel="{Binding Name}" Value="{Binding Value, Mode=TwoWay}" Margin="0,0,0,10" InputType="Short" />
               </DataTemplate>
 
               <DataTemplate DataType="val:IntValueViewModel">
@@ -67,11 +87,27 @@
               </DataTemplate>
 
               <DataTemplate DataType="val:Colour3ValueViewModel">
-                <Input3 InputLabel="{Binding Name}" 
-                        Value1="{Binding Value1, Mode=TwoWay}"
-                        Value2="{Binding Value2, Mode=TwoWay}"
-                        Value3="{Binding Value3, Mode=TwoWay}"
-                        Margin="0,0,0,10" InputType="Float" />
+                <ColourInput InputLabel="{Binding Name}" 
+                        Value="{Binding Value, Mode=TwoWay}"
+                        Margin="0,0,0,10" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:Vec3ValueViewModel">
+                <Vec3Input InputLabel="{Binding Name}"
+                        Value="{Binding Value, Mode=TwoWay}"
+                        Margin="0,0,0,10" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:Vec4ValueViewModel">
+                <Vec4Input InputLabel="{Binding Name}"
+                        Value="{Binding Value, Mode=TwoWay}"
+                        Margin="0,0,0,10" />
+              </DataTemplate>
+
+              <DataTemplate DataType="val:MtxValueViewModel">
+                <MtxInput InputLabel="{Binding Name}"
+                        Value="{Binding Value, Mode=TwoWay}"
+                        Margin="0,0,0,10" />
               </DataTemplate>
 
               <DataTemplate DataType="val:ClassViewModel">

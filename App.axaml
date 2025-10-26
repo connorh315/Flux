@@ -11,8 +11,11 @@
       <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
           <ResourceInclude Source="/Controls/Input.axaml"/>
-          <ResourceInclude Source="/Controls/Input3.axaml"/>
+          <ResourceInclude Source="/Controls/Vec3Input.axaml"/>
+          <ResourceInclude Source="/Controls/Vec4Input.axaml"/>
+          <ResourceInclude Source="/Controls/MtxInput.axaml"/>
           <ResourceInclude Source="/Controls/FSInput.axaml"/>
+          <ResourceInclude Source="/Controls/ColourInput.axaml"/>
         </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
     </Application.Resources>

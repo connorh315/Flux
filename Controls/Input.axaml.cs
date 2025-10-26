@@ -11,8 +11,10 @@ public enum InputControlType
 {
     String,
     Byte,
+    Short,
     Int,
     Long,
+    Half,
     Float
 }
 
@@ -60,6 +62,11 @@ public class Input : TemplatedControl
                             throw new DataValidationException($"Byte value only (0-255)");
                         break;
 
+                    case InputControlType.Short:
+                        if (!short.TryParse(value, out _))
+                            throw new DataValidationException($"Short value only (-32768 to 32767)");
+                        break;
+
                     case InputControlType.Int:
                         if (!int.TryParse(value, out _))
                             throw new DataValidationException($"Integer value only ({int.MinValue} to {int.MaxValue})");
@@ -68,6 +75,11 @@ public class Input : TemplatedControl
                     case InputControlType.Long:
                         if (!long.TryParse(value, out _))
                             throw new DataValidationException($"Long value only ({long.MinValue} to {long.MaxValue})");
+                        break;
+
+                    case InputControlType.Half:
+                        if (!float.TryParse(value, out float f) || f < -65504f || f > 65504f)
+                            throw new DataValidationException($"Half-precision float value only (-65504 to 65504)");
                         break;
 
                     case InputControlType.Float:

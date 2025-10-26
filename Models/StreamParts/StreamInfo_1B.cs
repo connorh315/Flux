@@ -9,7 +9,7 @@ namespace Flux.Models.StreamParts
 {
     public class StreamInfo_1B : StreamInfo_1E
     {
-        public override ContainerInstance ReadMOBJ(ClassDefinition thisClass, RawFile file)
+        public override MemberObject ReadMOBJ(ClassDefinition thisClass, RawFile file)
         {
             uint rootMOBJBlockSize = file.ReadUInt();
             string mobjStr = file.ReadIntPascalString(false);

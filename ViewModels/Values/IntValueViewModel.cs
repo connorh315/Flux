@@ -18,7 +18,9 @@ namespace Flux.ViewModels.Values
 
         public IntValueViewModel(PrimitiveField model) : base(model)
         {
-            Value = (int)model.Value;
+            Value = model.Value != null ? (int)model.Value : 0;
         }
+
+        public override object GetValue() => Value;
     }
 }

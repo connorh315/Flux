@@ -1,4 +1,5 @@
 ﻿using Flux.Models;
+using Flux.NuTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,16 @@ namespace Flux.ViewModels.Values
 {
     public class Colour3ValueViewModel : ValueViewModel
     {
-        public override FieldType Type => FieldType.Float;
+        public override FieldType Type => FieldType.Colour3;
 
-        private float floatValue1;
-        public float Value1 { get => floatValue1; set => SetField(ref floatValue1, value); }
-
-        private float floatValue2;
-        public float Value2 { get => floatValue2; set => SetField(ref floatValue2, value); }
-
-        private float floatValue3;
-        public float Value3 { get => floatValue3; set => SetField(ref floatValue3, value); }
+        private Colour3 _value = new Colour3();
+        public Colour3 Value { get => _value; set => SetField(ref _value, value); }
 
         public Colour3ValueViewModel(PrimitiveField model) : base(model)
         {
-            (float, float, float) val = ((ValueTuple<float, float, float>)model.Value);
-
-            Value1 = val.Item1;
-            Value2 = val.Item2;
-            Value3 = val.Item3;
+            Value = model.Value != null ? (Colour3)model.Value : new Colour3();
         }
+
+        public override object GetValue() => Value;
     }
 }

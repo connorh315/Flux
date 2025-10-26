@@ -15,6 +15,15 @@ namespace Flux.ViewModels.Values
 
         public FieldValue Model { get; set; }
 
+        public FieldValue ConvertToPrimitiveModel()
+        {
+            var pf = (PrimitiveField)Model;
+            pf.Value = GetValue();
+            return pf;
+        }
+
+        public abstract object GetValue();
+
         public ValueViewModel(FieldValue model)
         {
             Name = model.Name;

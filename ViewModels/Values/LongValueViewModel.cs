@@ -17,7 +17,9 @@ namespace Flux.ViewModels.Values
         public long Value { get => longValue; set => SetField(ref longValue, value); }
         public LongValueViewModel(PrimitiveField model) : base(model)
         {
-            Value = (long)model.Value;
+            Value = model.Value != null ? (long)model.Value : 0L;
         }
+
+        public override object GetValue() => Value;
     }
 }

@@ -18,7 +18,13 @@ namespace Flux.ViewModels.Values
 
         public ObservableCollection<object> Children { get; } = new();
 
-        public ClassViewModel(ContainerInstance model) : base(model)
+        public ClassViewModel Params { get; set; }
+
+        public ClassListViewModel Parent { get; set; }
+
+        public bool CanRemove => Parent != null;
+
+        public ClassViewModel(MemberObject model) : base(model)
         {
             Properties.CollectionChanged += (s, e) => Sync();
             Components.CollectionChanged += (s, e) => Sync();
@@ -27,6 +33,10 @@ namespace Flux.ViewModels.Values
         private void Sync()
         {
             Children.Clear();
+
+            if (Params != null)
+                Children.Add(Params);
+
             foreach (var p in Properties) 
             {
                 if (p is ClassViewModel) 
@@ -34,7 +44,18 @@ namespace Flux.ViewModels.Values
                     Children.Add(p); 
                 }
             }
+
             foreach (var c in Components) Children.Add(c);
+        }
+
+        public override object GetValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove()
+        {
+            Parent.Instances.Remove(this);
         }
     }
 }

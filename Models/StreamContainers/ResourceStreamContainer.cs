@@ -9,11 +9,22 @@ namespace Flux.Models.StreamContainers
 {
     public class ResourceStreamContainer : StreamContainer
     {
+        byte[] resourceHeader;
+
         protected override void Read(RawFile file)
         {
             uint reshSize = file.ReadUInt(true);
-            file.Seek(reshSize + 4, SeekOrigin.Begin);
+            resourceHeader = new byte[reshSize];
+            file.ReadInto(resourceHeader, (int)reshSize);
             base.Read(file);
+        }
+
+        public override void Write(RawFile file)
+        {
+            file.WriteInt(resourceHeader.Length, true);
+            file.fileStream.Write(resourceHeader, 0, resourceHeader.Length);
+
+            base.Write(file);
         }
     }
 }

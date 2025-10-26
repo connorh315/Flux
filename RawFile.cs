@@ -167,6 +167,16 @@ namespace Flux
             WriteBlock(BitConverter.GetBytes(toWrite), bigEndian);
         }
 
+        public Half ReadHalf(bool bigEndian = false)
+        {
+            return BitConverter.ToHalf(ReadBlock(2, bigEndian));
+        }
+
+        public void WriteHalf(Half toWrite, bool bigEndian = false)
+        {
+            WriteBlock(BitConverter.GetBytes(toWrite), bigEndian);
+        }
+
         public string ReadString(int length)
         {
             if (length == 0) return string.Empty;
@@ -239,6 +249,12 @@ namespace Flux
             WriteString(toWrite, padding);
         }
 
+        public void WriteIntPascalString(string toWrite, bool bigEndian = true, int padding = 0)
+        {
+            WriteInt(toWrite.Length + padding, bigEndian);
+            WriteString(toWrite, padding);
+        }
+
         public void ReadInto(byte[] destination, int size)
         {
             fileStream.Read(destination, 0, size);
@@ -284,32 +300,31 @@ namespace Flux
         }
     }
 
-    public class RawFileHop : IDisposable
+    public class RawFileSection : IDisposable
     {
-        public long OriginalPosition;
-        public long HopPosition;
+        public long MarkerPosition;
 
-        public long HopDistance => OriginalPosition - HopPosition;
-
-        /// <summary>
-        /// Used when writing the length of a block
-        /// </summary>
-        public uint BlockLength => (uint)HopDistance - 4;
+        public long SectionSize => File.Position - MarkerPosition - 4;
 
         public RawFile File;
 
-        public RawFileHop(RawFile file, long hopPosition)
-        {
-            OriginalPosition = file.Position;
-            file.Seek(hopPosition, SeekOrigin.Begin);
+        public bool IncludeMarkerSize = false;
 
-            HopPosition = hopPosition;
+        public RawFileSection(RawFile file, bool includeMarkerSize = true)
+        {
+            MarkerPosition = file.Position;
+            file.WritePadding(4); // Reserve space for length
             File = file;
+            IncludeMarkerSize = includeMarkerSize;
         }
 
         public void Dispose()
         {
-            File.Seek(OriginalPosition, SeekOrigin.Begin);
+            long currentPosition = File.Position;
+            int length = (int)SectionSize;
+            File.Seek(MarkerPosition, SeekOrigin.Begin);
+            File.WriteInt(IncludeMarkerSize ? length + 4 : length);
+            File.Seek(currentPosition, SeekOrigin.Begin);
         }
     }
 }

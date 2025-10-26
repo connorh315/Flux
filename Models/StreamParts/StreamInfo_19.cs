@@ -70,7 +70,7 @@ namespace Flux.Models.StreamParts
                     }
                     else
                     {
-                        Console.WriteLine($"\tProperty: {classTypeName} - Type: {Types[typeIndex]}");
+                        Console.WriteLine($"\tProperty: {classTypeName} - Type: {Types[typeIndex].Type}");
                     }
 
                     Console.WriteLine($"\t\tFlags: {flag1:X8} {flag2:X8} {shouldUseAlternative:X8} {countVal:X8}");
@@ -127,7 +127,5 @@ namespace Flux.Models.StreamParts
                 }
             }
         }
-
-        
     }
 }

@@ -10,8 +10,6 @@ namespace Flux.Models.StreamContainers
 {
     public class StreamContainer
     {
-        public virtual string Name { get; }
-
         public StreamInfo Stream { get; set; }
 
         protected virtual void Read(RawFile file)
@@ -36,11 +34,17 @@ namespace Flux.Models.StreamContainers
                 {
                     container = new StreamContainer();
                 }
+                file.Seek(0, SeekOrigin.Begin);
 
                 container.Read(file);
 
                 return container;
             }
+        }
+
+        public virtual void Write(RawFile file)
+        {
+            Stream.Write(file);
         }
     }
 }

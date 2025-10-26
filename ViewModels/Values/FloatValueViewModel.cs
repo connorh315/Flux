@@ -16,7 +16,16 @@ namespace Flux.ViewModels.Values
 
         public FloatValueViewModel(PrimitiveField model) : base(model)
         {
-            Value = (float)model.Value;
+            if (model.Value is Half half)
+            {
+                Value = (float)half;
+            }
+            else
+            {
+                Value = model.Value != null ? (float)model.Value : 0f;
+            }
         }
+
+        public override object GetValue() => Value;
     }
 }
