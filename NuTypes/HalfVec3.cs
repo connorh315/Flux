@@ -14,6 +14,8 @@ namespace Flux.NuTypes
 
         }
 
+        public HalfVec3() : base() { }
+
         public override void Write(RawFile file)
         {
             file.WriteHalf((Half)X);

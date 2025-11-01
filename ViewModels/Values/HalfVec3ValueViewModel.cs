@@ -14,6 +14,9 @@ namespace Flux.ViewModels.Values
 
         public HalfVec3ValueViewModel(PrimitiveField model) : base(model)
         {
+            if (Value is HalfVec3 _) return;
+
+            Value = new HalfVec3();
         }
 
         public override object GetValue()
