@@ -20,7 +20,11 @@ namespace Flux
 
             KeyDown += MainWindow_KeyDown;
 
-            //vm.OpenFile(@"F:\mods\lordvortechmod\CHARCACHE\LORDVORTECH\CHARS\MINIFIG\LORDVORTECH\lordvortech.cd");
+            if (App.Args != null && App.Args.Length > 0)
+            {
+                vm.OpenFile(App.Args[0]);
+            }
+
         }
 
         private async void OpenFileMenu()

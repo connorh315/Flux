@@ -13,12 +13,16 @@ namespace Flux
             AvaloniaXamlLoader.Load(this);
         }
 
+        public static string[] Args;
+
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                Args = desktop.Args;
                 desktop.MainWindow = new MainWindow();
             }
+
 
             base.OnFrameworkInitializationCompleted();
         }
